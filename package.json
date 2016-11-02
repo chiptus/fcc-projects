@@ -1,0 +1,30 @@
+{
+  "name": "fcc-projects",
+  "version": "1.0.0",
+  "description": "\"# fccprojects\"",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chiptus/fcc-projects.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chiptus/fcc-projects/issues"
+  },
+  "homepage": "https://github.com/chiptus/fcc-projects#readme",
+  "devDependencies": {
+    "eslint": "^3.9.1",
+    "eslint-config-airbnb": "^12.0.0",
+    "eslint-plugin-import": "^2.0.1",
+    "eslint-plugin-jsx-a11y": "^2.2.3",
+    "eslint-plugin-react": "^6.5.0"
+  },
+  "dependencies": {
+    "eslint-loader": "^1.6.1",
+    "eslint-plugin-react": "^6.5.0"
+  }
+}

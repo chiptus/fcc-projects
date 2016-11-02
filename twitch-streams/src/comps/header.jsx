@@ -1,21 +1,25 @@
 import React from 'react';
 
 const Header = ({
-  addStream
+  addStream,
 }) => {
   let input;
   return (
 
     <div>
-    <h1 className="pull-left">Twitch Streams</h1>
-    <div className="pull-right" style={{marginTop:"20px"}}>
-      <input placeholder="Stream Name" ref={(c) => input = c}/>
-      <button onClick={() => addStream(input.value)}><i className="fa fa-search"></i></button>
+      <h1 className="pull-left">Twitch Streams</h1>
+      <div className="pull-right" style={{ marginTop: '20px' }}>
+        <input placeholder="Stream Name" ref={(c) => { input = c; }} />
+        <button onClick={() => addStream(input.value)}><i className="fa fa-search" /></button>
+      </div>
+      <div className="clearfix" />
     </div>
-      <div className="clearfix"></div>
-  </div>
 
-  )
+  );
+};
+
+Header.propTypes = {
+  addStream: React.PropTypes.func,
 };
 
 export default Header;
