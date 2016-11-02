@@ -1,0 +1,1 @@
+ReactDom.render(<WikipediaApp dataInterface/>, document.getElementById('app'));
