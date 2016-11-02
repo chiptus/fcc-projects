@@ -1,0 +1,9 @@
+.searchmatch{
+  font-weight:bold;
+}
+
+body { padding-top: 70px; }
+
+a, a:visited, a:hover, a:active {
+  text-decoration:none;
+}

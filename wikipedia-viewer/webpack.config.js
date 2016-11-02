@@ -9,6 +9,10 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'babel',
       },
+      // {
+      //   test: require.resolve('react'),
+      //   loader: 'expose?React'
+      // }
     ],
   },
   resolve: {
