@@ -1,9 +1,29 @@
-.searchmatch{
-  font-weight:bold;
+.inside-container {
+  width: 30%;
+  margin: auto;
 }
 
-body { padding-top: 70px; }
+.spacer {
+  margin-right: 10px;
+  float:left;
+}
 
-a, a:visited, a:hover, a:active {
-  text-decoration:none;
+.btn:hover {
+  background-color: gray;
+}
+
+.output input {
+  width:100%;
+  border:none;
+  background: inherit;
+}
+
+
+
+#result-input {
+  font-size: xx-large;
+}
+
+.btn {
+  outline: none;
 }
