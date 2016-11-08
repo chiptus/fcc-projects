@@ -1,0 +1,29 @@
+.inside-container {
+  width: 30%;
+  margin: auto;
+}
+
+.spacer {
+  margin-right: 10px;
+  float:left;
+}
+
+.btn:hover {
+  background-color: gray;
+}
+
+.output input {
+  width:100%;
+  border:none;
+  background: inherit;
+}
+
+
+
+#result-input {
+  font-size: xx-large;
+}
+
+.btn {
+  outline: none;
+}
