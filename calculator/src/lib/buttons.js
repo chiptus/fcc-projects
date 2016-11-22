@@ -1,6 +1,20 @@
 import NumberKey from './NumberKey';
 import ActionKey from './ActionKey';
 
+function oneStepCalculation(arr, index, action) {
+  const a = calculate(arr.slice(0, index));
+  const b = calculate(arr.slice(index + 1));
+  return action(a, b);
+}
+
+const actions = {
+  X: (a, b) => a * b,
+  '/': (a, b) => a / b,
+  '+': (a, b) => a + b,
+  '-': (a, b) => a - b,
+};
+
+
 function calculate(stack) {
   if (stack.length === 1) {
     return stack[0];
@@ -9,31 +23,32 @@ function calculate(stack) {
   const divIndex = stack.indexOf('/');
   if (mulIndex !== -1 && divIndex !== -1) {
     if (mulIndex < divIndex) {
-      return calculate(stack.slice(0, mulIndex)) * calculate(stack.slice(mulIndex + 1));
+      return oneStepCalculation(stack, mulIndex, actions['X']);
     }
-    return calculate(stack.slice(0, divIndex)) / calculate(stack.slice(divIndex + 1));
+    return oneStepCalculation(stack, divIndex, actions['/']);
   }
   if (mulIndex !== -1) {
-    return calculate(stack.slice(0, mulIndex)) * calculate(stack.slice(mulIndex + 1));
+    return oneStepCalculation(stack, mulIndex, actions['X']);
   }
   if (divIndex !== -1) {
-    return calculate(stack.slice(0, divIndex)) / calculate(stack.slice(divIndex + 1));
+    return oneStepCalculation(stack, divIndex, actions['/']);
   }
   const plusIndex = stack.indexOf('+');
   const minusIndex = stack.indexOf('-');
   if (plusIndex !== -1 && minusIndex !== -1) {
     if (plusIndex < minusIndex) {
-      return calculate(stack.slice(0, plusIndex)) + calculate(stack.slice(plusIndex + 1));
+      return oneStepCalculation(stack, plusIndex, actions['+']);
     }
-    return calculate(stack.slice(0, minusIndex)) - calculate(stack.slice(minusIndex + 1));
+    return oneStepCalculation(stack, minusIndex, actions['-']);
   }
   if (plusIndex !== -1) {
-    return calculate(stack.slice(0, plusIndex)) + calculate(stack.slice(plusIndex + 1));
+    return oneStepCalculation(stack, plusIndex, actions['+']);
   }
   if (minusIndex !== -1) {
-    return calculate(stack.slice(0, minusIndex)) - calculate(stack.slice(minusIndex + 1));
+    return oneStepCalculation(stack, minusIndex, actions['-']);
   }
 }
+
 
 export default [
   {
