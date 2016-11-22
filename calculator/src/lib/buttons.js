@@ -14,41 +14,36 @@ const actions = {
   '-': (a, b) => a - b,
 };
 
+function calculateOneLevel(arr, charA, charB) {
+  const aIndex = arr.indexOf(charA);
+  const bIndex = arr.indexOf(charB);
+  if (aIndex !== -1 && bIndex !== -1) {
+    if (aIndex < bIndex) {
+      return oneStepCalculation(arr, aIndex, actions[charA]);
+    }
+    return oneStepCalculation(arr, bIndex, actions[charB]);
+  }
+  if (aIndex !== -1) {
+    return oneStepCalculation(arr, aIndex, actions[charA]);
+  }
+  if (bIndex !== -1) {
+    return oneStepCalculation(arr, bIndex, actions[charB]);
+  }
+  return null;
+}
 
 function calculate(stack) {
   if (stack.length === 1) {
     return stack[0];
   }
-  const mulIndex = stack.indexOf('X');
-  const divIndex = stack.indexOf('/');
-  if (mulIndex !== -1 && divIndex !== -1) {
-    if (mulIndex < divIndex) {
-      return oneStepCalculation(stack, mulIndex, actions['X']);
-    }
-    return oneStepCalculation(stack, divIndex, actions['/']);
-  }
-  if (mulIndex !== -1) {
-    return oneStepCalculation(stack, mulIndex, actions['X']);
-  }
-  if (divIndex !== -1) {
-    return oneStepCalculation(stack, divIndex, actions['/']);
-  }
-  const plusIndex = stack.indexOf('+');
-  const minusIndex = stack.indexOf('-');
-  if (plusIndex !== -1 && minusIndex !== -1) {
-    if (plusIndex < minusIndex) {
-      return oneStepCalculation(stack, plusIndex, actions['+']);
-    }
-    return oneStepCalculation(stack, minusIndex, actions['-']);
-  }
-  if (plusIndex !== -1) {
-    return oneStepCalculation(stack, plusIndex, actions['+']);
-  }
-  if (minusIndex !== -1) {
-    return oneStepCalculation(stack, minusIndex, actions['-']);
-  }
-}
+  let answer = calculateOneLevel(stack, '+', '-');
 
+  if (!answer) {
+    answer = calculateOneLevel(stack, 'X', '/');
+  }
+
+  return answer;
+}
 
 export default [
   {

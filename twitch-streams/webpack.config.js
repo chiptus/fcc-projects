@@ -9,6 +9,11 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'babel',
       },
+      {
+        test: /\.json/,
+        exclude: /node_modules/,
+        loader: 'json',
+      },
       // {
       //   test: require.resolve('react'),
       //   loader: 'expose?React'
