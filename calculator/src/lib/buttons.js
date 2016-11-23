@@ -1,12 +1,6 @@
 import NumberKey from './NumberKey';
 import ActionKey from './ActionKey';
 
-function oneStepCalculation(arr, index, action) {
-  const a = calculate(arr.slice(0, index));
-  const b = calculate(arr.slice(index + 1));
-  return action(a, b);
-}
-
 const actions = {
   X: (a, b) => a * b,
   '/': (a, b) => a / b,
@@ -17,19 +11,16 @@ const actions = {
 function calculateOneLevel(arr, charA, charB) {
   const aIndex = arr.indexOf(charA);
   const bIndex = arr.indexOf(charB);
-  if (aIndex !== -1 && bIndex !== -1) {
-    if (aIndex < bIndex) {
-      return oneStepCalculation(arr, aIndex, actions[charA]);
-    }
-    return oneStepCalculation(arr, bIndex, actions[charB]);
+  if (aIndex === bIndex) { // the only case when the indeces are equal is if both of them is -1
+    return null;
   }
-  if (aIndex !== -1) {
-    return oneStepCalculation(arr, aIndex, actions[charA]);
+  let index = aIndex;
+  let action = actions[charA];
+  if (bIndex !== -1 && (aIndex === -1 || bIndex < aIndex)) {
+    index = bIndex;
+    action = actions[charB];
   }
-  if (bIndex !== -1) {
-    return oneStepCalculation(arr, bIndex, actions[charB]);
-  }
-  return null;
+  return oneStepCalculation(arr, index, action);
 }
 
 function calculate(stack) {
@@ -37,12 +28,16 @@ function calculate(stack) {
     return stack[0];
   }
   let answer = calculateOneLevel(stack, '+', '-');
-
-  if (!answer) {
+  if (answer === null) {
     answer = calculateOneLevel(stack, 'X', '/');
   }
-
   return answer;
+}
+
+function oneStepCalculation(arr, index, action) {
+  const a = calculate(arr.slice(0, index));
+  const b = calculate(arr.slice(index + 1));
+  return action(a, b);
 }
 
 export default [
