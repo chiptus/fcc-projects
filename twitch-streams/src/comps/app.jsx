@@ -1,4 +1,5 @@
 import React from 'react';
+import Notifications from 'react-notify-toast';
 
 import Header from './header';
 import ListOfStreams from './list-of-streams';
@@ -20,7 +21,7 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
-    this.dataInterface.loadStreams(this.streamNames)
+    this.dataInterface.loadStreams()
       .then(() => this.setState({ streams: this.dataInterface.getStreams() }));
   }
 
@@ -60,6 +61,7 @@ export default class App extends React.Component {
           removeStream={this.removeStream}
           filterStreams={this.filterStreams}
         />
+        <Notifications />
       </div>
     );
   }

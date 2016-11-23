@@ -1,38 +1,48 @@
 import NumberKey from './NumberKey';
 import ActionKey from './ActionKey';
 
+function oneStepCalculation(arr, index, action) {
+  const a = calculate(arr.slice(0, index));
+  const b = calculate(arr.slice(index + 1));
+  return action(a, b);
+}
+
+const actions = {
+  X: (a, b) => a * b,
+  '/': (a, b) => a / b,
+  '+': (a, b) => a + b,
+  '-': (a, b) => a - b,
+};
+
+function calculateOneLevel(arr, charA, charB) {
+  const aIndex = arr.indexOf(charA);
+  const bIndex = arr.indexOf(charB);
+  if (aIndex !== -1 && bIndex !== -1) {
+    if (aIndex < bIndex) {
+      return oneStepCalculation(arr, aIndex, actions[charA]);
+    }
+    return oneStepCalculation(arr, bIndex, actions[charB]);
+  }
+  if (aIndex !== -1) {
+    return oneStepCalculation(arr, aIndex, actions[charA]);
+  }
+  if (bIndex !== -1) {
+    return oneStepCalculation(arr, bIndex, actions[charB]);
+  }
+  return null;
+}
+
 function calculate(stack) {
   if (stack.length === 1) {
     return stack[0];
   }
-  const mulIndex = stack.indexOf('X');
-  const divIndex = stack.indexOf('/');
-  if (mulIndex !== -1 && divIndex !== -1) {
-    if (mulIndex < divIndex) {
-      return calculate(stack.slice(0, mulIndex)) * calculate(stack.slice(mulIndex + 1));
-    }
-    return calculate(stack.slice(0, divIndex)) / calculate(stack.slice(divIndex + 1));
+  let answer = calculateOneLevel(stack, '+', '-');
+
+  if (!answer) {
+    answer = calculateOneLevel(stack, 'X', '/');
   }
-  if (mulIndex !== -1) {
-    return calculate(stack.slice(0, mulIndex)) * calculate(stack.slice(mulIndex + 1));
-  }
-  if (divIndex !== -1) {
-    return calculate(stack.slice(0, divIndex)) / calculate(stack.slice(divIndex + 1));
-  }
-  const plusIndex = stack.indexOf('+');
-  const minusIndex = stack.indexOf('-');
-  if (plusIndex !== -1 && minusIndex !== -1) {
-    if (plusIndex < minusIndex) {
-      return calculate(stack.slice(0, plusIndex)) + calculate(stack.slice(plusIndex + 1));
-    }
-    return calculate(stack.slice(0, minusIndex)) - calculate(stack.slice(minusIndex + 1));
-  }
-  if (plusIndex !== -1) {
-    return calculate(stack.slice(0, plusIndex)) + calculate(stack.slice(plusIndex + 1));
-  }
-  if (minusIndex !== -1) {
-    return calculate(stack.slice(0, minusIndex)) - calculate(stack.slice(minusIndex + 1));
-  }
+
+  return answer;
 }
 
 export default [

@@ -1,36 +1,34 @@
 import fetchJsonp from 'fetch-jsonp';
 
+import { notify } from 'react-notify-toast';
+
+import streamsArr from './data.json';
 import Stream from './stream';
 import { TWITCH_URL } from './constants';
 
 const API_KEY = 'j2m7to7ft669avlejckfi69iroc81ax';
+
 
 export default class DataInterface {
   constructor() {
     this.streams = [];
   }
 
-  loadStreams(streams = []) {
-    if (!streams.length) {
-      return Promise.resolve([]);
-    }
-    return Promise.all(
-      streams.map(s =>
-        fetchJsonp(`https://api.twitch.tv/kraken/channels/${s}?client_id=${API_KEY}`)
-          .then(r => r.json())
-          .then((ch) => {
-            if (ch.error) {
-              return new Stream(s);
-            }
-            return Stream.buildStream(ch);
-          }
-          )
-      )
-    ).then((sts) => { this.streams = sts; return sts; });
-  }
-
-  setStreams(streams = []) {
-    this.streams = streams;
+  loadStreams() {
+    this.streams = streamsArr.map((channel) => {
+      if (channel.error) {
+        notify.show(channel.message);
+        return null;
+      }
+      if (channel.stream) {
+        const stream = channel.stream;
+        return new Stream(stream.display_name, stream.game, stream.url, stream.logo, true);
+        // channel is streaming
+      }
+      // channel isn't streaming
+      return new Stream(channel.display_name, '', '', '', false);
+    }).filter(s => !!s);
+    return Promise.resolve(this.streams);
   }
 
   getStreams() {
