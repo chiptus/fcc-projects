@@ -1,43 +1,8 @@
 import NumberKey from './NumberKey';
 import ActionKey from './ActionKey';
 
-const actions = {
-  X: (a, b) => a * b,
-  '/': (a, b) => a / b,
-  '+': (a, b) => a + b,
-  '-': (a, b) => a - b,
-};
-
-function calculateOneLevel(arr, charA, charB) {
-  const aIndex = arr.indexOf(charA);
-  const bIndex = arr.indexOf(charB);
-  if (aIndex === bIndex) { // the only case when the indeces are equal is if both of them is -1
-    return null;
-  }
-  let index = aIndex;
-  let action = actions[charA];
-  if (bIndex !== -1 && (aIndex === -1 || bIndex < aIndex)) {
-    index = bIndex;
-    action = actions[charB];
-  }
-  return oneStepCalculation(arr, index, action);
-}
-
 function calculate(stack) {
-  if (stack.length === 1) {
-    return stack[0];
-  }
-  let answer = calculateOneLevel(stack, '+', '-');
-  if (answer === null) {
-    answer = calculateOneLevel(stack, 'X', '/');
-  }
-  return answer;
-}
-
-function oneStepCalculation(arr, index, action) {
-  const a = calculate(arr.slice(0, index));
-  const b = calculate(arr.slice(index + 1));
-  return action(a, b);
+  return eval(stack.join(''));
 }
 
 export default [
@@ -63,7 +28,7 @@ export default [
   NumberKey.key(7),
   NumberKey.key(8),
   NumberKey.key(9),
-  ActionKey.key('X'),
+  ActionKey.key('*'),
   NumberKey.key(4),
   NumberKey.key(5),
   NumberKey.key(6),
