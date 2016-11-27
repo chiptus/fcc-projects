@@ -22,6 +22,11 @@
 
 #result-input {
   font-size: xx-large;
+  height:50px;
+}
+
+#calc-input {
+  height:20px;
 }
 
 .btn {
