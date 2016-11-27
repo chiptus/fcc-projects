@@ -1,6 +1,6 @@
 import React from 'react';
 
-import DataInterface from './lib/data-interface';
+import Timer from './lib/timer';
 import TimerView from './comps/timer-view';
 
 export default class App extends React.Component {
@@ -13,18 +13,36 @@ export default class App extends React.Component {
     this.add = this.add.bind(this);
     this.substract = this.substract.bind(this);
     this.start = this.start.bind(this);
+    this.pause = this.pause.bind(this);
+
+    this.timer = props.timer;
+
+    this.timer.timeEnd = () => {
+      alert('Time end');
+    };
+
+    this.timer.timeChanged = (m, s) => {
+      const seconds = `0${s}`.slice(-2);
+      // const minutes = `0${m}`.slice(-2);
+      this.setState({ clock: `${m}:${seconds}`, counting: this.timer.counting });
+    };
   }
 
   add() {
-    this.setState({ clock: '25:00' });
+    this.timer.addSecond();
   }
 
   substract() {
-    this.setState({ clock: '24:00' });
+    this.timer.substractSecond();
   }
 
   start() {
-    console.log("Start");
+    this.timer.startClock();
+  }
+
+  pause() {
+    this.timer.pause();
+    this.setState({ counting: this.timer.counting });
   }
 
   render() {
@@ -43,7 +61,14 @@ export default class App extends React.Component {
               </button>
             </div>
             <div className="start-button">
-              <button title="Start" onClick={this.start}><i className="fa fa-play" /></button>
+              {
+                (!this.state.counting) ?
+                  (<button title="Start" onClick={this.start}><i className="fa fa-play" /></button>)
+                  : (
+                    <button title="Pause" onClick={this.pause}>
+                      <i className="fa fa-pause" />
+                    </button>)
+              }
             </div>
           </div>
         </div>
@@ -54,5 +79,5 @@ export default class App extends React.Component {
 }
 
 App.propTypes = {
-  dataInterface: React.PropTypes.instanceOf(DataInterface),
+  timer: React.PropTypes.instanceOf(Timer),
 };
