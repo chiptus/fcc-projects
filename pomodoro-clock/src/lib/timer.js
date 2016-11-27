@@ -1,5 +1,7 @@
 export default class Timer {
   constructor(countMinutes, countSeconds) {
+    this.orgMinutes = countMinutes;
+    this.orgSeconds = countSeconds;
     this.countMinutes = countMinutes;
     this.countSeconds = countSeconds;
     this.counting = false;
@@ -17,6 +19,10 @@ export default class Timer {
     clearInterval(this.interval);
     this.interval = null;
     this.counting = false;
+  }
+
+  reset(){
+    this.changeTime(this.orgMinutes, this.orgSeconds);
   }
 
   updateTimer() {
