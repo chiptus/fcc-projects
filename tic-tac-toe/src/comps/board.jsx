@@ -1,7 +1,18 @@
 import React from 'react';
 
-export default function Board({ signs = ['', '', '', '', '', '', '', '', ''] }) {
-  return signs.map(sign => (
-    <div>{sign}</div>
-  ));
-}
+import BoardCell from './board-cell';
+
+const Board = ({ signs }) => (
+  <div className="center-align">
+    <div className="row">
+      {
+        signs.map((sign, i) => (
+          <BoardCell sign={sign} key={i} />
+        ))
+      }
+    </div>
+  </div>
+);
+
+
+export default Board;
