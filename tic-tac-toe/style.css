@@ -1,9 +1,8 @@
-.searchmatch{
-  font-weight:bold;
+.board-cell {
+  height: 150px;
+  border: solid;
 }
 
-body { padding-top: 70px; }
-
-a, a:visited, a:hover, a:active {
-  text-decoration:none;
+.board-cell > div {
+  margin: 0 auto;
 }
