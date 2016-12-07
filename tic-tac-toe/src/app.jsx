@@ -43,7 +43,7 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="center">
         <Board signs={this.state.signs} onClickCell={this.onClickCell} />
         <Menu turn={this.state.turn} newGame={this.newGame} />
       </div>
