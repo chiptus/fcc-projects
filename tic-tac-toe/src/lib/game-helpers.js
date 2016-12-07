@@ -36,7 +36,7 @@ export function outOfBounds(x) {
 }
 
 export function notXO(value) {
-  return value !== 'X' || value !== 'O';
+  return value !== 'X' && value !== 'O';
 }
 
 function getCol(cells, col) {
@@ -74,11 +74,11 @@ export function checkIfColIsWinning(cells, col, value) {
 }
 
 export function checkRows(cells, value) {
-  return makeArrayOfNumbers(3).some(v => checkIfRowIsWinning(cells, v, value));
+  return makeArrayOfNumbers(3).some(v => checkIfRowIsWinning(cells, v + 1, value));
 }
 
 export function checkCols(cells, value) {
-  return makeArrayOfNumbers(3).some(v => checkIfColIsWinning(cells, v, value));
+  return makeArrayOfNumbers(3).some(v => checkIfColIsWinning(cells, v + 1, value));
 }
 
 function checkIfMainHypoIsWinning(cells, value) {
@@ -91,4 +91,13 @@ function checkIfSubHypoIsWinning(cells, value) {
 
 export function checkHypos(cells, value) {
   return checkIfMainHypoIsWinning(cells, value) || checkIfSubHypoIsWinning(cells, value);
+}
+
+function randomInteger(min, max) {
+  return Math.floor(Math.random() * (max - min)) + min;
+}
+
+
+export function randomCell(arr) {
+  return arr[randomInteger(0, arr.length)];
 }

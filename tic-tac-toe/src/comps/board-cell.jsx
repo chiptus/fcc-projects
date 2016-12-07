@@ -1,11 +1,16 @@
 import React from 'react';
 
-const BoardCell = ({sign}) => (
-  <div className="col s4 board-cell valign-wrapper" style={{ border: 'solid' }}>
-    <div className="valign">
-      {sign || '-'}
+
+const BoardCell = ({ sign, onClick }) => {
+  const onClickWrapper = () => !sign && onClick();
+
+  return (
+    <div className="col s4 board-cell valign-wrapper" style={{ border: 'solid' }} onClick={onClickWrapper}>
+      <div className="valign">
+        {sign || '-'}
+      </div>
     </div>
-  </div>
-);
+  )
+};
 
 export default BoardCell;
