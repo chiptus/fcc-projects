@@ -7,12 +7,10 @@ import Menu from './comps/menu';
 export default class App extends React.Component {
   constructor(props) {
     super(props);
+    this.game = new Game();
+    this.state = { turn: 'Player', signs: this.game.getCells() };
     this.onClickCell = this.onClickCell.bind(this);
     this.newGame = this.newGame.bind(this);
-  }
-
-  componentDidMount() {
-    this.newGame();
   }
 
   onClickCell(index, val) {
