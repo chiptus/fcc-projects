@@ -7,7 +7,7 @@ const BoardCell = ({ sign, onClick }) => {
   return (
     <div className="col s4 board-cell valign-wrapper" style={{ border: 'solid' }} onClick={onClickWrapper}>
       <div className="valign">
-        {sign || '-'}
+        {sign || ' '}
       </div>
     </div>
   )

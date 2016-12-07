@@ -1,8 +1,15 @@
 .board-cell {
   height: 150px;
   border: solid;
+  user-select: none;
+  font-size: 3em;
 }
 
 .board-cell > div {
   margin: 0 auto;
+}
+
+.board {
+  width: 50%;
+  margin: 15px auto;
 }
