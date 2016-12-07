@@ -1,23 +1,25 @@
 import React from 'react';
 
-import Board from './comps/board';
-import Game from './lib/game';
+import BoardView from './comps/board-view';
+import Board from './lib/board';
 import Menu from './comps/menu';
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
-    this.game = new Game();
+    this.game = new Board();
     this.state = { turn: 'Player', signs: this.game.getCells() };
     this.onClickCell = this.onClickCell.bind(this);
     this.newGame = this.newGame.bind(this);
   }
 
-  onClickCell(index, val) {
+  onClickCell(val, index) {
     if (this.state.turn !== 'Player') {
       return;
     }
-    this.game.setCell(index, val);
+    if (!this.game.setCell(val, index)) {
+      return;
+    }
     this.setState({ signs: this.game.getCells() });
     if (this.game.checkVictory(val)) {
       this.setState({ turn: 'Player Won' });
@@ -37,14 +39,14 @@ export default class App extends React.Component {
   }
 
   newGame() {
-    this.game = new Game();
+    this.game = new Board();
     this.setState({ turn: 'Player', signs: this.game.getCells() });
   }
 
   render() {
     return (
       <div className="center">
-        <Board signs={this.state.signs} onClickCell={this.onClickCell} />
+        <BoardView signs={this.state.signs} onClickCell={this.onClickCell} />
         <Menu turn={this.state.turn} newGame={this.newGame} />
       </div>
     );
@@ -53,6 +55,6 @@ export default class App extends React.Component {
 }
 
 App.propTypes = {
-  game: React.PropTypes.instanceOf(Game),
+  game: React.PropTypes.instanceOf(Board),
   newGame: React.PropTypes.func,
 };
