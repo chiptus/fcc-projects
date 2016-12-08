@@ -1,0 +1,5 @@
+type of game (computer or 2 players) - can decide if player 2 is random or user
+board state - board class
+player state
+
+few routes?
