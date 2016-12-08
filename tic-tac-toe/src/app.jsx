@@ -18,7 +18,8 @@ export default class App extends React.Component {
       active: true,
     };
     this.onClickCell = this.onClickCell.bind(this);
-    this.newGame = this.newGame.bind(this);
+    this.newOnePlayerGame = this.newOnePlayerGame.bind(this);
+    this.newTwoPlayersGame = this.newTwoPlayersGame.bind(this);
   }
 
   onClickCell(val, index) {
@@ -58,21 +59,33 @@ export default class App extends React.Component {
     this.setState({ player: PLAYERS.PLAYER_A, signs: this.game.getCells() });
   }
 
-  newGame() {
+  newGame(type = GAME_TYPES.TWO_PLAYERS) {
     this.game = new Board();
     this.setState({
       player: PLAYERS.PLAYER_A,
-      type: GAME_TYPES.TWO_PLAYERS,
+      type,
       signs: this.game.getCells(),
       active: true,
     });
+  }
+
+  newOnePlayerGame() {
+    this.newGame(GAME_TYPES.COMPUTER);
+  }
+
+  newTwoPlayersGame() {
+    this.newGame();
   }
 
   render() {
     return (
       <div className="center">
         <BoardView signs={this.state.signs} onClickCell={this.onClickCell} />
-        <Menu turn={this.state.player} newGame={this.newGame} />
+        <Menu
+          turn={this.state.player}
+          newOnePlayerGame={this.newOnePlayerGame}
+          newTwoPlayersGame={this.newTwoPlayersGame}
+        />
       </div>
     );
   }
