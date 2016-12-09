@@ -2,12 +2,12 @@ import React from 'react';
 
 import BoardCell from './board-cell';
 
-const Board = ({ signs, onClickCell }) => (
+const BoardView = ({ signs, onClickCell }) => (
   <div className="board center-align">
     <div className="row">
       {
         signs.map((sign, i) => (
-          <BoardCell sign={sign} onClick={() => onClickCell(i, 'X')} key={i} />
+          <BoardCell sign={sign} onClick={() => onClickCell(i)} key={i} />
         ))
       }
     </div>
@@ -15,9 +15,9 @@ const Board = ({ signs, onClickCell }) => (
 );
 
 
-Board.propTypes = {
+BoardView.propTypes = {
   signs: React.PropTypes.arrayOf(React.PropTypes.string),
   onClickCell: React.PropTypes.func,
 };
 
-export default Board;
+export default BoardView;

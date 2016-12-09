@@ -10,20 +10,24 @@ export default class Game {
     return this.cells;
   }
 
-  setCell(index, value) {
-    // if (GameHelpers.outOfBounds(x) || GameHelpers.outOfBounds(y)) {
-    //   throw new Error('indexes are out of bounds');
-    // }
+  setCell(value, index) {
     if (GameHelpers.notXO(value)) {
       throw new Error('value is not X or O');
     }
+    if (!index && index !== 0) {
+      return this.setRandomCell(value);
+    }
+    if (this.cells[index]) {
+      return false;
+    }
     this.cells[index] = value;
     this.emptyCells = this.emptyCells.filter(v => v !== index);
+    return true;
   }
 
   setRandomCell(value) {
     const randomIndex = GameHelpers.randomCell(this.emptyCells);
-    this.setCell(randomIndex, value);
+    return this.setCell(value, randomIndex);
   }
 
   getCell(x, y) {
