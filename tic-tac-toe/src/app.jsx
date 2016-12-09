@@ -22,7 +22,7 @@ export default class App extends React.Component {
     this.newTwoPlayersGame = this.newTwoPlayersGame.bind(this);
   }
 
-  onClickCell(val, index) {
+  onClickCell(index) {
     if (!this.state.active ||
       (this.state.player === PLAYERS.PLAYER_B && this.state.type === GAME_TYPES.COMPUTER)) {
       return;
@@ -32,7 +32,7 @@ export default class App extends React.Component {
       return;
     }
     this.setState({ signs: this.game.getCells() });
-    if (this.game.checkVictory(val)) {
+    if (this.game.checkVictory(value)) {
       this.setState({ player: `${this.state.player} Won`, active: false });
       return;
     }

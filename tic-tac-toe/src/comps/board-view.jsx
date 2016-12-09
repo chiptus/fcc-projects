@@ -7,7 +7,7 @@ const BoardView = ({ signs, onClickCell }) => (
     <div className="row">
       {
         signs.map((sign, i) => (
-          <BoardCell sign={sign} onClick={() => onClickCell('X', i)} key={i} />
+          <BoardCell sign={sign} onClick={() => onClickCell(i)} key={i} />
         ))
       }
     </div>
