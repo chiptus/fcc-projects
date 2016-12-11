@@ -1,15 +1,17 @@
 import React from 'react';
 
-const Menu = ({ turn, newOnePlayerGame, newTwoPlayersGame }) => (
+const Menu = ({ newOnePlayerGame, newTwoPlayersGame }) => (
   <div>
-    <div>{turn}</div>
-    <button onClick={newOnePlayerGame} >Play against the computer</button>
-    <button onClick={newTwoPlayersGame} >New Two Players Game</button>
+    <div>
+      <button className="btn" onClick={newOnePlayerGame} >Play against the computer</button>
+    </div>
+    <div>
+      <button className="btn" onClick={newTwoPlayersGame} >New Two Players Game</button>
+    </div>
   </div>
 );
 
 Menu.propTypes = {
-  turn: React.PropTypes.string,
   newOnePlayerGame: React.PropTypes.func,
   newTwoPlayersGame: React.PropTypes.func,
 };

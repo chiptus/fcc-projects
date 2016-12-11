@@ -1,8 +1,10 @@
 import React from 'react';
 
-import BoardView from './comps/board-view';
 import Board from './lib/board';
+
+import BoardView from './comps/board-view';
 import Menu from './comps/menu';
+import Won from './comps/won';
 
 import GAME_TYPES from './constants/game-types';
 import PLAYERS from './constants/players';
@@ -16,10 +18,13 @@ export default class App extends React.Component {
       type: GAME_TYPES.TWO_PLAYERS,
       signs: this.game.getCells(),
       active: true,
+      isWon: '',
     };
+
     this.onClickCell = this.onClickCell.bind(this);
     this.newOnePlayerGame = this.newOnePlayerGame.bind(this);
     this.newTwoPlayersGame = this.newTwoPlayersGame.bind(this);
+    this.restartGame = this.restartGame.bind(this);
   }
 
   onClickCell(index) {
@@ -33,7 +38,7 @@ export default class App extends React.Component {
     }
     this.setState({ signs: this.game.getCells() });
     if (this.game.checkVictory(value)) {
-      this.setState({ player: `${this.state.player} Won`, active: false });
+      this.setState({ player: `${this.state.player} Won`, active: false, isWon: this.state.player });
       return;
     }
     this.changePlayer();
@@ -66,6 +71,7 @@ export default class App extends React.Component {
       type,
       signs: this.game.getCells(),
       active: true,
+      isWon: '',
     });
   }
 
@@ -77,15 +83,31 @@ export default class App extends React.Component {
     this.newGame();
   }
 
+  restartGame() {
+    return this.newGame(this.state.type);
+  }
+
   render() {
     return (
       <div className="center">
-        <BoardView signs={this.state.signs} onClickCell={this.onClickCell} />
-        <Menu
-          turn={this.state.player}
-          newOnePlayerGame={this.newOnePlayerGame}
-          newTwoPlayersGame={this.newTwoPlayersGame}
-        />
+        {
+          !this.state.isWon ?
+            (
+              <div>
+                <h3>{this.state.player}</h3>
+                <BoardView signs={this.state.signs} onClickCell={this.onClickCell} />
+                <Menu
+                  newOnePlayerGame={this.newOnePlayerGame}
+                  newTwoPlayersGame={this.newTwoPlayersGame}
+                />
+              </div>
+            ) :
+            (
+              <div className="center valign-wrapper" style={{ height: '100vh' }}>
+                <Won name={this.state.isWon} restartGame={this.restartGame} />
+              </div>
+            )
+        }
       </div>
     );
   }
