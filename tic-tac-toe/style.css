@@ -17,3 +17,11 @@
 .won {
   margin: 0 auto;
 }
+
+.container > div {
+  height: 100vh;
+}
+
+.container > div > div {
+  width:100%;
+}

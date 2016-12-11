@@ -5,6 +5,7 @@ import Board from './lib/board';
 import BoardView from './comps/board-view';
 import Menu from './comps/menu';
 import Won from './comps/won';
+import Welcome from './comps/welcome';
 
 import GAME_TYPES from './constants/game-types';
 import PLAYERS from './constants/players';
@@ -26,6 +27,15 @@ export default class App extends React.Component {
     this.newTwoPlayersGame = this.newTwoPlayersGame.bind(this);
     this.restartGame = this.restartGame.bind(this);
   }
+
+
+  componentWillMount() {
+    $(document).ready(() => {
+      $('select').material_select();
+      
+    });
+  }
+
 
   onClickCell(index) {
     if (!this.state.active ||
@@ -89,30 +99,37 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <div className="center">
-        {
-          !this.state.isWon ?
-            (
-              <div>
-                <h3>{this.state.player}</h3>
-                <BoardView signs={this.state.signs} onClickCell={this.onClickCell} />
-                <Menu
-                  newOnePlayerGame={this.newOnePlayerGame}
-                  newTwoPlayersGame={this.newTwoPlayersGame}
-                />
-              </div>
-            ) :
-            (
-              <div className="center valign-wrapper" style={{ height: '100vh' }}>
-                <Won name={this.state.isWon} restartGame={this.restartGame} />
-              </div>
-            )
-        }
+      <div className="center valign-wrapper" style={{ height: '100vh' }}>
+        <Welcome />
       </div>
     );
   }
 
 }
+
+/*
+
+{
+          !this.state.isWon ?
+            (
+              <div>
+                <h3>{this.state.player}</h3>
+                <BoardView signs={this.state.signs} onClickCell={this.onClickCell} />
+
+              </div>
+            ) :
+            (
+              <div className="">
+                <Won name={this.state.isWon} restartGame={this.restartGame} />
+              </div>
+            )
+        }
+
+<Menu
+                  newOnePlayerGame={this.newOnePlayerGame}
+                  newTwoPlayersGame={this.newTwoPlayersGame}
+                />
+                */
 
 App.propTypes = {
   game: React.PropTypes.instanceOf(Board),
