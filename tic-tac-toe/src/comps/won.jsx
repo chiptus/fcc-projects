@@ -1,14 +1,17 @@
 import React from 'react';
 
-const Won = ({ params, router }) => {
+const Won = ({ location, params, router }) => {
+  const winnerName = params.name;
+  const { name, symbol } = location.query;
+
   function restartGame() {
-    router.push('/');
+    router.push(`/?name=${name}&symbol=${symbol}`);
   }
-  const name = params.name;
+
   return (
     <div className="won">
       {
-        name !== "TIE" ? (<h1>{params.name} Won</h1>)
+        winnerName !== "TIE" ? (<h1>{winnerName} Won</h1>)
           : (<h1>This is a tie</h1>)
       }
       <button className="btn" onClick={restartGame}>Restart Game</button>
