@@ -13,3 +13,15 @@
   width: 50%;
   margin: 15px auto;
 }
+
+.won {
+  margin: 0 auto;
+}
+
+.container > div {
+  height: 100vh;
+}
+
+.container > div > div {
+  width:100%;
+}

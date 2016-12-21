@@ -25,9 +25,12 @@ export default class Game {
     return true;
   }
 
-  setRandomCell(value) {
-    const randomIndex = GameHelpers.randomCell(this.emptyCells);
-    return this.setCell(value, randomIndex);
+  full() {
+    return this.emptyCells.length === 0;
+  }
+
+  getRandomEmptyCell() {
+    return GameHelpers.randomCell(this.emptyCells);
   }
 
   getCell(x, y) {
