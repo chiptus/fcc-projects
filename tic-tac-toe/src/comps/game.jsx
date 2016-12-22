@@ -8,7 +8,7 @@ import SIGNS from '../constants/signs';
 
 import Board from '../lib/board';
 import { buildPlayerAndComputer } from '../lib/player';
-
+import { convertObjectToQueryString } from '../lib/utils';
 
 export default class Game extends React.Component {
   constructor(props) {
@@ -41,9 +41,9 @@ export default class Game extends React.Component {
   }
 
   won(name) {
-    setTimeout(() => { 
+    setTimeout(() => {
       this.props.router.push(
-        `/won/${name}?name=${this.players.player.name}&symbol=${this.players.player.symbol}`
+        `/won/${name}?${convertObjectToQueryString(this.players.player)}`
       );
     }, 500);
   }
@@ -83,7 +83,7 @@ export default class Game extends React.Component {
   }
 
   newGame() {
-    this.props.router.push(`/?name=${this.players.player.name}&symbol=${this.players.player.symbol}`);
+    this.props.router.push(`/?${convertObjectToQueryString(this.players.player)}`);
   }
 
   render() {
