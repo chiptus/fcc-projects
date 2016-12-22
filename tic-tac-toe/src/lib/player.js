@@ -10,9 +10,16 @@ export default function playerFactory(name, symbol, type) {
 }
 
 export function buildPlayerAndComputer(name = 'Player A', symbol = SIGNS.X) {
-  const computerSign = (symbol === SIGNS.X) ? SIGNS.O : SIGNS.X;
+  const playerSymbol = (symbol === SIGNS.X || symbol === SIGNS.O) ? symbol : SIGNS.X;
+  const computerSymbol = (playerSymbol === SIGNS.X) ? SIGNS.O : SIGNS.X;
+
+  const player = playerFactory(name, playerSymbol, PLAYERS.PLAYER_A);
+  const computer = playerFactory(PLAYERS.COMPUTER, computerSymbol, PLAYERS.COMPUTER);
+
   return {
-    [symbol]: playerFactory(name, symbol, PLAYERS.PLAYER_A),
-    [computerSign]: playerFactory(PLAYERS.COMPUTER, computerSign, PLAYERS.COMPUTER),
+    [playerSymbol]: player,
+    [computerSymbol]: computer,
+    player,
+    computer,
   };
 }
