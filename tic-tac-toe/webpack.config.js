@@ -18,13 +18,9 @@ module.exports = {
   resolve: {
     extensions: ['', '.js', '.jsx'],
   },
-  devtool: 'eval-source-map',
   output: {
-    path: `${__dirname}/dist`,
+    path: `${__dirname}/`,
     publicPath: '/',
     filename: 'bundle.js',
-  },
-  devServer: {
-    contentBase: './dist',
   },
 };
