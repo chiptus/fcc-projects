@@ -3,5 +3,4 @@ import ReactDom from 'react-dom';
 
 import App from './app';
 
-// const dataInterface = new DataInterface();
 ReactDom.render(<App />, document.getElementById('app'));
