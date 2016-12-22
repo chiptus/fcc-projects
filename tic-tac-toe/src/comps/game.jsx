@@ -14,12 +14,10 @@ export default class Game extends React.Component {
   constructor(props) {
     super(props);
     this.game = new Board();
-    this.player = {
-      symbol: this.props.location.query.symbol,
-      name: this.props.location.query.name,
-    };
-    this.players = buildPlayerAndComputer(this.player.name,
-      this.player.symbol);
+
+    this.players = buildPlayerAndComputer(this.props.location.query.name,
+      this.props.location.query.symbol);
+
 
     this.state = {
       type: GAME_TYPES.COMPUTER,
@@ -45,7 +43,7 @@ export default class Game extends React.Component {
   won(name) {
     setTimeout(() => { 
       this.props.router.push(
-        `/won/${name}?name=${this.player.name}&symbol=${this.player.symbol}`
+        `/won/${name}?name=${this.players.player.name}&symbol=${this.players.player.symbol}`
       );
     }, 500);
   }
@@ -85,7 +83,7 @@ export default class Game extends React.Component {
   }
 
   newGame() {
-    this.props.router.push(`/?name=${this.player.name}&symbol=${this.player.symbol}`);
+    this.props.router.push(`/?name=${this.players.player.name}&symbol=${this.players.player.symbol}`);
   }
 
   render() {
