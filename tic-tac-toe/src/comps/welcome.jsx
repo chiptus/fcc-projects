@@ -6,33 +6,32 @@ export default class Welcome extends React.Component {
   constructor(props) {
     super(props);
     const { name = '', symbol = 'X' } = this.props.location.query;
-    this.name = name;
-    this.symbol = symbol;
+    this.state = { name, symbol };
 
     this.submit = this.submit.bind(this);
     this.onChangeName = this.onChangeName.bind(this);
     this.onChangeSymbol = this.onChangeSymbol.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     $(document).ready(() => {
       $('select').material_select();
     });
   }
 
   onChangeName() {
-    this.name = this.nameInput.value;
+    this.setState({ name: this.nameInput.value });
   }
 
   onChangeSymbol() {
-    this.symbol = this.symbolInput.value;
+    this.setState({ symbol: this.symbolInput.value });
   }
 
   submit() {
-    if (!this.name) {
+    if (!this.state.name) {
       return;
     }
-    this.props.router.push(`/game?symbol=${this.symbol}&name=${this.name}`);
+    this.props.router.push(`/game?symbol=${this.state.symbol}&name=${this.state.name}`);
   }
 
   render() {
@@ -44,12 +43,8 @@ export default class Welcome extends React.Component {
           <div className="col s6 input-field">
             <input
               id="name"
-              ref={(c) => {
-                this.nameInput = c;
-                if (this.nameInput) {
-                  this.nameInput.value = this.name;
-                }
-              }}
+              ref={(c) => { this.nameInput = c; }}
+              value={this.state.name}
               required
               onChange={this.onChangeName}
             />
@@ -58,12 +53,9 @@ export default class Welcome extends React.Component {
           <div className="col s6 input-field">
             <label htmlFor="symbol" className="active">Symbol</label>
             <select
-              ref={(c) => {
-                this.symbolInput = c;
-                if (this.symbolInput) {
-                  this.symbolInput.value = this.symbol;
-                }
-              }} onChange={this.onChangeSymbol}
+              ref={(c) => { this.symbolInput = c; }}
+              onChange={this.onChangeSymbol}
+              value={this.state.symbol}
             >
               <option value="X">X</option>
               <option value="O">O</option>
