@@ -17,7 +17,7 @@ const NameInput = ({ name, onChangeName }) => {
 
 NameInput.propTypes = {
   name: React.PropTypes.string.isRequired,
-  onChangeName: React.PropTypes.func,
+  onChangeName: React.PropTypes.func.isRequired,
 };
 
 export default NameInput;
