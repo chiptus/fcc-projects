@@ -2,13 +2,13 @@ import React from 'react';
 
 import BoardView from './board-view';
 
-import GAME_TYPES from '../constants/game-types';
-import PLAYERS from '../constants/players';
-import SIGNS from '../constants/signs';
+import GAME_TYPES from '../../constants/game-types';
+import PLAYERS from '../../constants/players';
+import SIGNS from '../../constants/signs';
 
-import Board from '../lib/board';
-import { buildPlayerAndComputer } from '../lib/player';
-import { convertObjectToQueryString } from '../lib/utils';
+import Board from '../../lib/board';
+import { buildPlayerAndComputer } from '../../lib/player';
+import { convertObjectToQueryString } from '../../lib/utils';
 
 export default class Game extends React.Component {
   constructor(props) {
