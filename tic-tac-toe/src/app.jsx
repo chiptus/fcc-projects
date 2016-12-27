@@ -4,7 +4,7 @@ import { Router, Route, hashHistory } from 'react-router';
 
 
 import Won from './comps/won';
-import Welcome from './comps/welcome';
+import Welcome from './comps/welcome/welcome';
 import Game from './comps/game/game';
 
 
