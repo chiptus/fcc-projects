@@ -18,7 +18,6 @@ export default class Game extends React.Component {
     this.players = buildPlayerAndComputer(this.props.location.query.name,
       this.props.location.query.symbol);
 
-
     this.state = {
       type: GAME_TYPES.COMPUTER,
       signs: this.game.getCells(),
