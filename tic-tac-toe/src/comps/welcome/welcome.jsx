@@ -1,8 +1,8 @@
 import React from 'react';
-import $ from 'jquery';
 import 'materialize-css';
 
 import NameInput from './name-input';
+import SymbolInput from './symbol-input';
 
 export default class Welcome extends React.Component {
   constructor(props) {
@@ -15,18 +15,12 @@ export default class Welcome extends React.Component {
     this.onChangeSymbol = this.onChangeSymbol.bind(this);
   }
 
-  componentDidMount() {
-    $(document).ready(() => {
-      $('select').material_select();
-    });
-  }
-
   onChangeName(name) {
     this.setState({ name });
   }
 
-  onChangeSymbol() {
-    this.setState({ symbol: this.symbolInput.value });
+  onChangeSymbol(symbol) {
+    this.setState({ symbol });
   }
 
   submit() {
@@ -43,17 +37,7 @@ export default class Welcome extends React.Component {
         <div>Please enter your name and choose a symbol</div>
         <div className="row">
           <NameInput name={this.state.name} onChangeName={this.onChangeName} />
-          <div className="col s6 input-field">
-            <label htmlFor="symbol" className="active">Symbol</label>
-            <select
-              ref={(c) => { this.symbolInput = c; }}
-              onChange={this.onChangeSymbol}
-              value={this.state.symbol}
-            >
-              <option value="X">X</option>
-              <option value="O">O</option>
-            </select>
-          </div>
+          <SymbolInput symbol={this.state.symbol} onChangeSymbol={this.onChangeSymbol} />
           <div className="col s12">
             <button className="btn" onClick={this.submit}>Play</button>
           </div>
