@@ -5,7 +5,7 @@ import { Router, Route, hashHistory } from 'react-router';
 
 import Won from './comps/won';
 import Welcome from './comps/welcome';
-import Game from './comps/game';
+import Game from './comps/game/game';
 
 
 
