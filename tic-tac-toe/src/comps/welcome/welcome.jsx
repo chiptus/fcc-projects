@@ -2,6 +2,8 @@ import React from 'react';
 import $ from 'jquery';
 import 'materialize-css';
 
+import NameInput from './name-input';
+
 export default class Welcome extends React.Component {
   constructor(props) {
     super(props);
@@ -19,8 +21,8 @@ export default class Welcome extends React.Component {
     });
   }
 
-  onChangeName() {
-    this.setState({ name: this.nameInput.value });
+  onChangeName(name) {
+    this.setState({ name });
   }
 
   onChangeSymbol() {
@@ -40,16 +42,7 @@ export default class Welcome extends React.Component {
         <h1>Welcome</h1>
         <div>Please enter your name and choose a symbol</div>
         <div className="row">
-          <div className="col s6 input-field">
-            <input
-              id="name"
-              ref={(c) => { this.nameInput = c; }}
-              value={this.state.name}
-              required
-              onChange={this.onChangeName}
-            />
-            <label htmlFor="name" className="active">Name</label>
-          </div>
+          <NameInput name={this.state.name} onChangeName={this.onChangeName} />
           <div className="col s6 input-field">
             <label htmlFor="symbol" className="active">Symbol</label>
             <select
