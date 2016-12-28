@@ -5,6 +5,7 @@ import BoardView from './board-view';
 import GAME_TYPES from '../../constants/game-types';
 import PLAYERS from '../../constants/players';
 import SIGNS from '../../constants/signs';
+import WIN_TYPES from '../../constants/win-types';
 
 import Board from '../../lib/board';
 import { buildPlayerAndComputer } from '../../lib/player';
@@ -58,7 +59,7 @@ export default class Game extends React.Component {
       return;
     }
     if (this.game.full()) {
-      this.won("TIE");
+      this.won(WIN_TYPES.TIE);
       return;
     }
     this.changePlayer();

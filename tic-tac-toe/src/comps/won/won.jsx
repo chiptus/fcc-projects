@@ -1,7 +1,8 @@
 import React from 'react';
+import WIN_TYPES from '../../constants/win-types';
 
 const Won = ({ location, params, router }) => {
-  const winnerName = params.name;
+  const text = params.name === WIN_TYPES.TIE ? `${params.name} Won` : 'This is a tie';
   const { name, symbol } = location.query;
 
   function restartGame() {
@@ -10,10 +11,7 @@ const Won = ({ location, params, router }) => {
 
   return (
     <div className="won">
-      {
-        winnerName !== "TIE" ? (<h1>{winnerName} Won</h1>)
-          : (<h1>This is a tie</h1>)
-      }
+      <h1>{text}</h1>
       <button className="btn" onClick={restartGame}>Restart Game</button>
     </div>
   );
