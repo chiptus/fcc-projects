@@ -2,13 +2,14 @@ import React from 'react';
 
 import BoardView from './board-view';
 
-import GAME_TYPES from '../constants/game-types';
-import PLAYERS from '../constants/players';
-import SIGNS from '../constants/signs';
+import GAME_TYPES from '../../constants/game-types';
+import PLAYERS from '../../constants/players';
+import SIGNS from '../../constants/signs';
+import WIN_TYPES from '../../constants/win-types';
 
-import Board from '../lib/board';
-import { buildPlayerAndComputer } from '../lib/player';
-import { convertObjectToQueryString } from '../lib/utils';
+import Board from '../../lib/board';
+import { buildPlayerAndComputer } from '../../lib/player';
+import { convertObjectToQueryString } from '../../lib/utils';
 
 export default class Game extends React.Component {
   constructor(props) {
@@ -17,7 +18,6 @@ export default class Game extends React.Component {
 
     this.players = buildPlayerAndComputer(this.props.location.query.name,
       this.props.location.query.symbol);
-
 
     this.state = {
       type: GAME_TYPES.COMPUTER,
@@ -59,7 +59,7 @@ export default class Game extends React.Component {
       return;
     }
     if (this.game.full()) {
-      this.won("TIE");
+      this.won(WIN_TYPES.TIE);
       return;
     }
     this.changePlayer();
