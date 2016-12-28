@@ -31,6 +31,11 @@ export default class Game extends React.Component {
     this.newGame = this.newGame.bind(this);
   }
 
+  componentDidMount() {
+    if (this.state.type === GAME_TYPES.COMPUTER && this.state.player === this.players.computer) {
+      this.makeComputerStep();
+    }
+  }
 
   onClickCell(index) {
     if (!this.state.active ||
