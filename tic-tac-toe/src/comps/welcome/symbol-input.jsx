@@ -3,7 +3,8 @@ import React from 'react';
 const style = {
   display: 'inline',
   border: 'none',
-  borderBottom: 'solid 0.5px',
+  borderBottom: 'solid 1px #9e9e9e',
+  borderRadius: 0,
   outline: 'none',
 };
 
