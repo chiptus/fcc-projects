@@ -39303,6 +39303,13 @@
 	  }
 
 	  _createClass(Game, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      if (this.state.type === _gameTypes2.default.COMPUTER && this.state.player === this.players.computer) {
+	        this.makeComputerStep();
+	      }
+	    }
+	  }, {
 	    key: 'onClickCell',
 	    value: function onClickCell(index) {
 	      if (!this.state.active || this.state.player.type === _players2.default.COMPUTER) {
