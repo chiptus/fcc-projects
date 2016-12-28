@@ -1,7 +1,9 @@
 module.exports = {
-  entry: [
-    './src/index.jsx',
-  ],
+  entry: {
+    bundle: './src/index.jsx',
+    // game: './src/lib/game.js',
+    tests: './src/tests/index.js',
+  },
   module: {
     loaders: [
       {
@@ -22,7 +24,7 @@ module.exports = {
   output: {
     path: `${__dirname}/dist`,
     publicPath: '/',
-    filename: 'bundle.js',
+    filename: '[name].js',
   },
   devServer: {
     contentBase: './dist',
