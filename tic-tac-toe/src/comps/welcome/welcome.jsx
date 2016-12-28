@@ -48,6 +48,13 @@ export default class Welcome extends React.Component {
 }
 
 Welcome.propTypes = {
-  location: React.PropTypes.instanceOf(Object),
-  router: React.PropTypes.instanceOf(Object),
+  location: React.PropTypes.shape({
+    query: React.PropTypes.shape({
+      name: React.PropTypes.string,
+      symbol: React.PropTypes.string,
+    }),
+  }),
+  router: React.PropTypes.shape({
+    push: React.PropTypes.func,
+  }),
 };
