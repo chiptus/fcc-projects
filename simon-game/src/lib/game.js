@@ -17,7 +17,7 @@ export default class Game {
   }
 }
 
-window.Game = Game;
+// window.Game = Game;
 
 function randomInteger(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
@@ -26,5 +26,3 @@ function randomInteger(min, max) {
 export function randomCell(arr) {
   return arr[randomInteger(0, arr.length)];
 }
-
-// export default Game;
