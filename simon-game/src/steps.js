@@ -1,18 +1,4 @@
-export default [
-  {
-    color: 'yellow',
-    id: 0,
-  },
-  {
-    color: 'red',
-    id: 1,
-  },
-  {
-    color: 'blue',
-    id: 2,
-  },
-  {
-    color: 'black',
-    id: 3,
-  },
-];
+export default Array.from(Array(4), (_, k) => ({
+  id: k,
+  sound: new Audio(`https://s3.amazonaws.com/freecodecamp/simonSound${k + 1}.mp3`),
+}));
