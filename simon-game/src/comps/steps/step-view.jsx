@@ -1,11 +1,10 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 
 
-const StepView = ({ step, clickable, onClick, active }) => (
+const StepView = ({ step, clickable, onClick }) => (
   <button
     className="step col s6"
     id={`step${step.id}`}
-    style={{ backgroundColor: active && step.color }}
     disabled={!clickable}
     onClick={onClick}
   >
@@ -14,11 +13,11 @@ const StepView = ({ step, clickable, onClick, active }) => (
 );
 
 StepView.propTypes = {
-  step: React.PropTypes.shape({
-    // id: React.PropTypes.number.isRequired,
-    color: React.PropTypes.string.isRequired,
+  step: PropTypes.shape({
+    id: PropTypes.number.isRequired,
   }),
-  clickable: React.PropTypes.bool,
+  clickable: PropTypes.bool,
+  onClick: PropTypes.func.isRequired,
 };
 
 export default StepView;
