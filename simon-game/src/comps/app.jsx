@@ -1,94 +1,149 @@
 import React from 'react';
-import stepTypes from '../steps';
 
-import StepView from './step';
+import StepsContainer from './steps/steps-container';
 import Game from '../lib/game';
 import Control from './control';
+
+const WINNING_LEVEL = 20;
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
 
-    this.game = new Game();
-    this.userSteps = [];
-    this.computerSteps = [];
+    this.setGameVariables();
     this.state = {
-      turn: "Computer",
+      level: 1,
+      strictGame: false,
+      wrongButton: false,
+      victory: false,
     };
 
 
-    this.checkSteps = this.checkSteps.bind(this);
+    this.onClickStep = this.onClickStep.bind(this);
+    this.newGame = this.newGame.bind(this);
+    this.toggleStrict = this.toggleStrict.bind(this);
   }
 
   componentDidMount() {
-    this.showSequence();
+    this.showNextSequence();
+  }
+
+  onClickStep(id) {
+    const index = this.userSteps.push(id) - 1;
+    this.playSound(id);
+    this.checkStep(index);
+  }
+
+  setGameVariables() {
+    this.game = new Game();
+    this.userSteps = [];
+    this.computerSteps = [];
+  }
+
+  newGame() {
+    this.setGameVariables();
+    this.gameRestarted = true;
+    this.setState({
+      level: 1,
+      victory: false,
+      wrongButton: false,
+    });
+    this.showNextSequence();
+  }
+
+  playSound(id) {
+
+  }
+
+  activateStep(id) {
+    const stepTile = document.querySelector(`#step${id}`);
+    stepTile.classList.add('active');
+    this.playSound(id);
+    setTimeout(() => {
+      stepTile.classList.remove('active');
+    }, 500);
+  }
+
+  showNextSequence() {
+    this.computerSteps = this.game.generateStep();
+    this.animateSequence();
+  }
+
+  animateSequence() {
+    this.userSteps = [];
+    let i = 0;
+    const intervalId = setInterval(() => {
+      this.activateStep(this.computerSteps[i]);
+      i += 1;
+      if (i >= this.computerSteps.length || this.gameRestarted) {
+        clearInterval(intervalId);
+        this.gameRestarted = false;
+      }
+    }, 1200);
+  }
+
+  checkStep(index) {
+    if (this.userSteps[index] !== this.computerSteps[index]) {
+      this.setState({
+        wrongButton: true,
+      }, () => {
+        setTimeout(() => {
+          if (this.state.strictGame) {
+            this.newGame();
+            return;
+          }
+          this.setState({ wrongButton: false });
+          this.animateSequence();
+        }, 500);
+      });
+
+      return;
+    }
+    if (this.userSteps.length === this.computerSteps.length) {
+      if (this.state.level >= WINNING_LEVEL) {
+        this.setState({
+          victory: true,
+        }, () => {
+          setTimeout(() => {
+            this.newGame();
+          }, 1500);
+        });
+        return;
+      }
+
+
+      this.setState({
+        level: this.state.level + 1,
+      });
+      this.showNextSequence();
+      return;
+    }
+  }
+
+  toggleStrict() {
+    this.setState({
+      strictGame: !this.state.strictGame,
+    });
   }
 
   render() {
-    const clickable = this.state.turn !== "Computer";
     return (
       <div className="container">
-        <div className="stepContainer">
-       
-            {
-              stepTypes.map(step => (
-                <StepView
-                  key={step.id}
-                  step={step}
-                  clickable={clickable}
-                  active={this.shouldBeActive(step.id)}
-                  onClick={() => this.onClickStep(step.id)}
-                />
-              ))
-            }
-            <Control />
-         
+        <div className="game-container">
+          <StepsContainer onClickStep={this.onClickStep} />
+          <Control
+            level={this.state.level}
+            newGame={this.newGame}
+            strict={this.state.strictGame}
+            toggleStrict={this.toggleStrict}
+            wrongButton={this.state.wrongButton}
+            victory={this.state.victory}
+          />
         </div>
       </div>
     );
   }
-
-  shouldBeActive(id) {
-    return this.state.turn === "Computer" && this.state.activeStep === id;
-  }
-
-  onClickStep(id) {
-    this.userSteps.push(id);
-    console.log("click");
-  }
-
-  showSequence() {
-    this.computerSteps = this.game.generateStep();
-    this.computerSteps = this.game.generateStep();
-    console.log(this.computerSteps);
-    this.setState({
-      turn: "Computer",
-    }, () => {
-      Promise.all(this.computerSteps.map(step =>
-        new Promise((res, rej) => setTimeout(() => {
-          this.setState({ activeStep: step }, () => {
-            res(step);
-          });
-        }, 1000))
-      )).then(() => {
-        setTimeout(() => this.setState({
-          turn: "Player",
-        }), 1000);
-      });
-    });
-  }
-
-  checkSteps() {
-    const check = this.game.checkSteps(this.userSteps);
-    this.setState({
-      success: check,
-    });
-  }
-
 }
-
-App.propTypes = {
-};
 
 /*
 
