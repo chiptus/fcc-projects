@@ -4,6 +4,8 @@ import StepsContainer from './steps/steps-container';
 import Game from '../lib/game';
 import Control from './control';
 
+import steps from '../steps';
+
 const WINNING_LEVEL = 20;
 
 export default class App extends React.Component {
@@ -52,7 +54,7 @@ export default class App extends React.Component {
   }
 
   playSound(id) {
-
+    steps[id].sound.play();
   }
 
   activateStep(id) {
