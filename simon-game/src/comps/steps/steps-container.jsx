@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 
 // import StepsComputer from './steps-computer';
 // import StepsUser from './steps-user';
-import stepTypes from '../../steps';
+import stepTypes from '../../lib/steps';
 import StepView from './step-view';
 
 const StepsContainer = ({ onClickStep }) => (

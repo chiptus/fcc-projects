@@ -1,4 +1,4 @@
-import steps from '../steps';
+import steps from './steps';
 
 export default class Game {
   constructor() {
@@ -16,8 +16,6 @@ export default class Game {
       && this.steps.every((e, i) => e === stepsToCheck[i]);
   }
 }
-
-// window.Game = Game;
 
 function randomInteger(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
