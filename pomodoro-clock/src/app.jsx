@@ -74,5 +74,5 @@ export default class App extends React.Component {
 }
 
 App.propTypes = {
-  timer: React.PropTypes.instanceOf(Timer),
+  // timer: React.PropTypes.instanceOf(Timer),
 };

@@ -2,28 +2,26 @@ module.exports = {
   entry: [
     './src/index.jsx',
   ],
-  module: {
-    loaders: [
-      {
-        test: /\.jsx?$/,
-        exclude: /node_modules/,
-        loader: 'babel',
-      },
-      // {
-      //   test: require.resolve('react'),
-      //   loader: 'expose?React'
-      // }
-    ],
-  },
-  resolve: {
-    extensions: ['', '.js', '.jsx'],
-  },
-  devtool: 'eval-source-map',
+  mode: 'development',
   output: {
     path: `${__dirname}/dist`,
     publicPath: '/',
     filename: 'bundle.js',
   },
+  module: {
+
+    rules: [
+      {
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader',
+      },
+    ],
+  },
+  resolve: {
+    extensions: ['.js', '.jsx'],
+  },
+
   devServer: {
     contentBase: './dist',
   },
